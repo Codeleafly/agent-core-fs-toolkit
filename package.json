@@ -1,0 +1,28 @@
+{
+  "name": "agent-core-fs-toolkit",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Secure, production-grade file system toolkit for AI agents",
+  "main": "./dist/library/index.js",
+  "types": "./dist/library/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/library/index.js",
+      "types": "./dist/library/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch core/library/index.ts",
+    "type-check": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "tsx": "^4.x",
+    "typescript": "^5.x"
+  }
+}
