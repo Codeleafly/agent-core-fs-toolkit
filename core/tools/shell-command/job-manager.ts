@@ -76,6 +76,17 @@ export class JobManager {
     const job = this.jobs.get(id);
     return job ? job.status !== JobStatus.RUNNING : true;
   }
+
+  public abortJob(id: string): void {
+    const proc = this.processes.get(id);
+    const job = this.jobs.get(id);
+    if (proc && job) {
+      proc.kill('SIGTERM');
+      job.status = JobStatus.ABORTED;
+      job.endTime = Date.now();
+      this.processes.delete(id);
+    }
+  }
 }
 
 export const jobManager = JobManager.getInstance();

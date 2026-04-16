@@ -30,6 +30,18 @@ test('Simplified API (fs alias)', async (t) => {
     assert.ok(output.includes('[F] package.json'));
   });
 
+  await t.test('fs.mkdir and fs.rm', async () => {
+    const dir = 'test_dir_to_rm';
+    await fs.mkdir(dir);
+    await fs.rm(dir, { recursive: true });
+    try {
+      await fs.stat(dir);
+      assert.fail('Directory should have been removed');
+    } catch (e: any) {
+      assert.strictEqual(e.code, 'FILE_NOT_FOUND');
+    }
+  });
+
   // Teardown
   await rm(testFile, { force: true });
 });

@@ -46,6 +46,7 @@ export enum JobStatus {
   COMPLETED = 'COMPLETED',
   FAILED = 'FAILED',
   TIMEOUT = 'TIMEOUT',
+  ABORTED = 'ABORTED',
 }
 
 export interface JobInfo {

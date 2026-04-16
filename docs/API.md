@@ -1,53 +1,38 @@
 # API Reference
 
-## Table of Contents
-- [readFile](#readfile)
-- [writeFile](#writefile)
-- [editFile](#editfile)
-- [removePath](#removepath)
-- [searchContent](#searchcontent)
-- [listDirectory](#listdirectory)
-- [createDirectory](#createdirectory)
-- [movePath](#movepath)
-- [copyPath](#copypath)
-- [statPath](#statpath)
+The `agent-core-fs-toolkit` provides a high-level `fs` alias designed for AI agents and a set of modular tools under `agentCoreFileTools`.
+
+## `fs` Alias (Recommended for AI Agents)
+
+All `fs` methods take an optional `options` object. If `options.json` is true, the method returns a stringified JSON representation of the result.
+
+### File Operations
+- `fs.read(path, options)`: Reads file content.
+- `fs.write(path, content, options)`: Writes content.
+- `fs.edit(path, options)`: Edits text file. Supports `oldString`/`newString` or `pattern`/`replacement`.
+- `fs.search(path, query, options)`: Searches for text.
+
+### Directory Operations
+- `fs.ls(path, options)`: Lists contents.
+- `fs.mkdir(path, options)`: Creates directory recursively.
+- `fs.rm(path, options)`: Removes path. Use `{ recursive: true }` for directories.
+
+### Path Management
+- `fs.mv(src, dst, options)`: Moves or renames.
+- `fs.cp(src, dst, options)`: Copies path.
+- `fs.stat(path, options)`: Gets metadata.
+
+### Shell & Job Management
+- `fs.shell(command, options)`: Runs a command with a 15s blocking window.
+- `fs.status(jobId, options)`: Non-blocking check of a job's current state.
+- `fs.abort(jobId, options)`: Terminates a running job.
+- `fs.wait(jobId, options)`: Blocks until the job is completed or failed.
 
 ---
 
-### `readFile(filePath: string, options?: ReadFileOptions): Promise<string | Buffer>`
-Reads the content of a file. Automatically detects binary vs text.
+## Detailed Tool Reference (`agentCoreFileTools`)
 
-### `writeFile(filePath: string, content: string | Buffer): Promise<void>`
-Writes content to a file. Creates parent directories if they don't exist.
-
-### `editFile(filePath: string, options: EditFileOptions): Promise<void>`
-Modifies a text file using string replacement or regex.
-- `oldString` / `newString`
-- `pattern` / `replacement`
-- `allowMultiple`: (boolean) Replace all occurrences.
-
-### `removePath(pathToRemove: string, recursive?: boolean): Promise<void>`
-Deletes a file or directory.
-
-### `searchContent(searchPath: string, query: string, options?: SearchOptions): Promise<SearchResult[]>`
-Searches for text within files.
-- `recursive`: (boolean)
-- `isRegex`: (boolean)
-
-### `listDirectory(dirPath: string, options?: ListDirectoryOptions): Promise<ListEntry[]>`
-Lists contents of a directory with optional metadata.
-
-### `createDirectory(dirPath: string): Promise<void>`
-Creates a directory and its parents.
-
-### `movePath(source: string, destination: string, overwrite?: boolean): Promise<void>`
-Moves or renames a path.
-
-### `copyPath(source: string, destination: string, recursive?: boolean): Promise<void>`
-Copies a path.
-
-### `statPath(filePath: string): Promise<FileMetadata>`
-Retrieves metadata for a path.
+For low-level tool usage, see the following signatures.
 
 ### `runShell(command: string): Promise<ShellResult>`
 Runs a shell command with a 15-second "blocking window".
@@ -63,13 +48,16 @@ Non-blocking check of a job's current state.
 Blocks the current execution until the job reaches a terminal state (`COMPLETED` or `FAILED`).
 - **Interval:** Polls every 1,000ms.
 
+---
+
 ## Data Types
 
 ### `JobStatus`
 - `RUNNING`
 - `COMPLETED`
 - `FAILED`
-- `TIMEOUT` (Currently used internally or for specific aborts)
+- `ABORTED`
+- `TIMEOUT`
 
 ### `ShellResult`
 ```typescript
