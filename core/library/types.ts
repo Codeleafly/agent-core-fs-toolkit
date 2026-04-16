@@ -40,3 +40,29 @@ export interface ListEntry {
   type: 'file' | 'directory' | 'other';
   metadata?: FileMetadata;
 }
+
+export enum JobStatus {
+  RUNNING = 'RUNNING',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  TIMEOUT = 'TIMEOUT',
+}
+
+export interface JobInfo {
+  id: string;
+  command: string;
+  status: JobStatus;
+  stdout: string;
+  stderr: string;
+  exitCode: number | null;
+  startTime: number;
+  endTime?: number;
+}
+
+export interface ShellResult {
+  jobId: string;
+  status: JobStatus;
+  output: string;
+  error?: string;
+}
+

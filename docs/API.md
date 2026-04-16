@@ -48,3 +48,16 @@ Copies a path.
 
 ### `statPath(filePath: string): Promise<FileMetadata>`
 Retrieves metadata for a path.
+
+### `runShell(command: string): Promise<ShellResult>`
+Runs a shell command. 
+- Blocks for 15 seconds.
+- If command finishes within 15s, returns result.
+- If not, it continues in background and returns the current output + `jobId`.
+- Dangerous commands are blocked.
+
+### `getToolStatus(jobId: string): Promise<ShellResult>`
+Returns the current status and output (stdout/stderr) of a job.
+
+### `wait(jobId: string): Promise<ShellResult>`
+Blocks until the job is completed or failed. Polling every 1s.

@@ -53,3 +53,14 @@ The library uses `resolvePathWithinWorkspace` to ensure all paths are normalized
 - `movePath`: Safe file/folder moving.
 - `copyPath`: Recursive copying.
 - `statPath`: File metadata retrieval.
+- `runShell`: Runs safe shell commands. Blocks for 15s then goes to background if not finished. Returns an 8-digit Job ID.
+- `getToolStatus`: Check live status and output of a shell job using its Job ID.
+- `wait`: Blocks until a shell job is finished, providing updates every second.
+
+## Shell Command Security
+
+The `runShell` tool blocks dangerous patterns like:
+- `rm -rf /`
+- Root directory modifications
+- Dangerous device writes (`dd`)
+- Unauthorized permission changes (`chmod 777`)
