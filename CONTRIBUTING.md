@@ -30,6 +30,12 @@ Thank you for your interest in improving the Secure FS Toolkit!
 - Maintain strict TypeScript typing (no `any`).
 - Adhere to the security constraints: never bypass path validation.
 
-## Security
+## AI Agent Context
 
-If you find a security vulnerability (e.g., a path traversal escape), please report it immediately via a GitHub Issue or a security advisory.
+We maintain several files to provide context to AI agents (Claude, Gemini, Cursor, etc.):
+- `CLAUDE.md`
+- `GEMINI.md`
+- `.cursorrules`
+- `AGENTS.md`
+
+If you modify core architecture or security rules, you **must** update these files to ensure AI agents stay synchronized with the project's constraints.

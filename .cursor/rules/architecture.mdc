@@ -1,0 +1,13 @@
+---
+description: Architectural patterns and coding standards
+globs: ["**/*.ts"]
+alwaysApply: true
+---
+# Architecture & Coding Standards
+
+- **Module System:** Strict ESM. Always use `.js` extensions in imports.
+- **Typing:** Strict TypeScript. No `any`. Use interfaces from `core/library/types.ts`.
+- **Tool Pattern:** Each tool must be modular, isolated, and follow the established pattern in `core/tools/`.
+- **Error Handling:** Use `FSToolError` with codes from `FSErrorCode`. No silent failures.
+- **Asynchrony:** Use `Promise`-based APIs. Prefer `node:fs/promises`.
+- **Background Jobs:** Long-running shell commands must use the `JobManager` for background execution.

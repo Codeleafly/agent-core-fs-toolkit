@@ -1,0 +1,12 @@
+---
+description: Security rules for all file and shell operations
+globs: ["core/**/*", "tests/**/*"]
+alwaysApply: true
+---
+# Security Rules
+
+- **Workspace Boundary:** Every file system operation must be validated using `resolvePathWithinWorkspace` from `core/library/guards.ts`.
+- **Directory Traversal:** Never allow paths that escape the project root (e.g., `../`).
+- **Shell Sanitization:** All shell commands must be checked against `DANGEROUS_PATTERNS` in `core/tools/shell-command/index.ts`.
+- **Dangerous Commands:** Block `rm -rf /`, root modifications, and unauthorized `chmod` calls.
+- **No Side Effects:** Tools should not modify files outside their explicit scope.
