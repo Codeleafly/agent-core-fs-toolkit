@@ -7,19 +7,19 @@
 - **Test Runner:** node:test
 
 ## Core Architecture
-This project is a secure file system toolkit for AI agents. Its primary goal is to provide FS operations that are safe from directory traversal and unauthorized access.
+This project is a secure file system toolkit for AI agents (**BETA**). Its primary goal is to provide FS operations that are safe from directory traversal and unauthorized access.
 
-- `core/library/guards.ts`: Contains the `resolvePathWithinWorkspace` logic. **All tools must use this.**
-- `core/tools/`: Each tool is an isolated ESM module.
-- `core/tools/shell-command/job-manager.ts`: Manages background processes (Job ID based).
+- `core/library/guards.ts`: Contains the `resolvePathWithinWorkspace` logic.
+- `core/library/index.ts`: Exports `agentCoreFileTools` and a simplified `fs` alias.
 
 ## Critical Rules for AI Agents
 1. **Security First:** Never implement a tool or modification that bypasses `resolvePathWithinWorkspace`.
-2. **Path Normalization:** Always normalize paths before performing any FS operation.
-3. **Shell Safety:** Use the `DANGEROUS_PATTERNS` blacklist in `core/tools/shell-command/index.ts` for any shell execution logic.
-4. **Error Handling:** Always use `FSToolError` with appropriate `FSErrorCode`.
-5. **No `any`:** Strict typing is mandatory. Use interfaces defined in `core/library/types.ts`.
-6. **ESM Imports:** Always use `.js` extensions in imports (e.g., `import { x } from './y.js'`).
+2. **Simplified API:** Prefer using the `fs` alias (e.g., `fs.read`, `fs.shell`).
+3. **JSON Results:** Use `{ json: true }` in `fs` methods for AI-friendly structured outputs.
+4. **Shell Safety:** Use the `DANGEROUS_PATTERNS` blacklist in `core/tools/shell-command/index.ts`.
+5. **Error Handling:** Always use `FSToolError`.
+6. **No `any`:** Strict typing is mandatory.
+7. **ESM Imports:** Always use `.js` extensions.
 
 ## Specialized Agent Folders
 - **Cursor Rules:** `.cursor/rules/`

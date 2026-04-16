@@ -3,7 +3,7 @@
 This file provides context for any AI agent (Claude, Gemini, GPT, etc.) working on this repository.
 
 ## Project Mission
-To provide a **secure, restricted file system interface** for AI agents. This toolkit is the "sandbox" within which an agent operates.
+To provide a **secure, restricted file system interface** for AI agents (**BETA**). This toolkit is the "sandbox" within which an agent operates.
 
 ## Tool-Specific Context
 We maintain specialized context for different AI agents:
@@ -15,7 +15,7 @@ We maintain specialized context for different AI agents:
 
 ## Immutable Rules
 1. **Workspace Isolation:** Every FS operation must be checked against the workspace root.
-2. **Deterministic Output:** Tools should return consistent, structured data (see `types.ts`).
+2. **AI-First Interaction:** Prefer using the `fs` alias with `{ json: true }` in options for tool results.
 3. **No Silent Failures:** Throw `FSToolError` for any operation that cannot be safely completed.
 4. **Shell Sanitization:** Never execute shell commands that could compromise the host system.
 

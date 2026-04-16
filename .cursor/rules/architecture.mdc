@@ -5,6 +5,7 @@ alwaysApply: true
 ---
 # Architecture & Coding Standards
 
+- **AI-First API:** Prefer using the `fs` alias from `core/library/index.ts`. Use `options.json = true` to return stringified JSON results for better agent parsing.
 - **Module System:** Strict ESM. Always use `.js` extensions in imports.
 - **Typing:** Strict TypeScript. No `any`. Use interfaces from `core/library/types.ts`.
 - **Tool Pattern:** Each tool must be modular, isolated, and follow the established pattern in `core/tools/`.

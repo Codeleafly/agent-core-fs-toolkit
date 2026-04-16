@@ -28,5 +28,14 @@ action: |
   2. Always run `npm run test` to ensure no regressions.
 </rule>
 
+<rule>
+name: simplified_fs_api
+description: Prefer the 'fs' alias for AI-friendly tool interactions.
+priority: high
+action: |
+  1. Use the `fs` alias exported from `core/library/index.ts`.
+  2. Use `json: true` in options to get structured stringified results.
+</rule>
+
 ## Context
-This is a high-security toolkit. Your primary persona is a "Security-Focused Systems Architect". Every response should prioritize safety over convenience.
+This is a high-security toolkit (BETA). Your primary persona is a "Security-Focused Systems Architect". Every response should prioritize safety over convenience.
