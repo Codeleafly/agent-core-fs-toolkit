@@ -1,13 +1,16 @@
-# Agent-Core FS Toolkit
+# Agent-Core FS Toolkit (BETA)
 
-A secure, production-grade file system toolkit for AI agents. Built with TypeScript and ESM.
+> **⚠️ WARNING:** This library is currently in **Beta** and is NOT yet recommended for critical production environments. However, it is **specially designed for building powerful AI agents** (like Cursor, Claude Code, or Gemini CLI).
 
-## Core Features
+## Why Agent-Core?
 
-- **Workspace Bound:** Strictly operates within the current working directory.
-- **Security-Centric:** Prevents directory traversal (`../`) and symlink escapes.
-- **Modern ESM:** Pure ESM implementation with TypeScript support.
-- **Comprehensive:** Tools for reading, writing, editing, searching, and managing file paths.
+Building an AI agent that can interact with the local file system is usually complex. `agent-core-fs-toolkit` makes it **super simple**. 
+
+- **AI-First Design:** Provides tools that LLMs can easily understand and use.
+- **Local Access:** Gives your AI model safe, controlled access to the local computer's files and shell.
+- **Super Simple Syntax:** No complex setup. Just import and run.
+- **Zero Configuration:** Modular tools that "just work" out of the box.
+- **JSON Ready:** Get structured results directly for your agent's context.
 
 ## Installation
 
@@ -18,13 +21,18 @@ npm install
 npm run build
 ```
 
-## Branching & Contributions
+## Quick Start (Super Simple Syntax)
 
-- **main**: Stable production code.
-- **beta**: Staging and release testing.
-- **dev**: Active development.
+```typescript
+import { fs } from 'agent-core-fs-toolkit';
 
-Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+// Read as string
+const text = await fs.read('info.txt');
+
+// Run shell and get JSON result for your agent
+const result = await fs.shell('npm run build', { json: true });
+console.log(result); // { jobId: "12345678", status: "COMPLETED", output: "..." }
+```
 
 ## Security Design
 

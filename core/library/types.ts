@@ -66,3 +66,8 @@ export interface ShellResult {
   error?: string;
 }
 
+export interface CommonOptions {
+  json?: boolean;
+}
+
+
