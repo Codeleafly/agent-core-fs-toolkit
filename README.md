@@ -12,11 +12,21 @@ A secure, production-grade file system toolkit for AI agents. Built with TypeScr
 ## Installation
 
 ```bash
+git clone https://github.com/Codeleafly/agent-core-fs-toolkit.git
+cd agent-core-fs-toolkit
 npm install
 npm run build
 ```
 
-## Usage
+## Branching & Contributions
+
+- **main**: Stable production code.
+- **beta**: Staging and release testing.
+- **dev**: Active development.
+
+Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## Security Design
 
 ```typescript
 import { agentCoreFileTools } from './core/library/index.js';
