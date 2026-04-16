@@ -50,14 +50,33 @@ Copies a path.
 Retrieves metadata for a path.
 
 ### `runShell(command: string): Promise<ShellResult>`
-Runs a shell command. 
-- Blocks for 15 seconds.
-- If command finishes within 15s, returns result.
-- If not, it continues in background and returns the current output + `jobId`.
-- Dangerous commands are blocked.
+Runs a shell command with a 15-second "blocking window".
+- **Parameters:** `command` (string).
+- **Return:** `ShellResult` containing `jobId`, `status`, and `output`.
+- **Behavior:** Returns `COMPLETED` if fast; returns `RUNNING` with a `jobId` if it exceeds 15s.
 
 ### `getToolStatus(jobId: string): Promise<ShellResult>`
-Returns the current status and output (stdout/stderr) of a job.
+Non-blocking check of a job's current state.
+- **Return:** Current `stdout` + `stderr` and `JobStatus`.
 
 ### `wait(jobId: string): Promise<ShellResult>`
-Blocks until the job is completed or failed. Polling every 1s.
+Blocks the current execution until the job reaches a terminal state (`COMPLETED` or `FAILED`).
+- **Interval:** Polls every 1,000ms.
+
+## Data Types
+
+### `JobStatus`
+- `RUNNING`
+- `COMPLETED`
+- `FAILED`
+- `TIMEOUT` (Currently used internally or for specific aborts)
+
+### `ShellResult`
+```typescript
+interface ShellResult {
+  jobId: string;
+  status: JobStatus;
+  output: string;
+  error?: string;
+}
+```

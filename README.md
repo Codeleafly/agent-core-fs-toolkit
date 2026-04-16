@@ -53,11 +53,19 @@ The library uses `resolvePathWithinWorkspace` to ensure all paths are normalized
 - `movePath`: Safe file/folder moving.
 - `copyPath`: Recursive copying.
 - `statPath`: File metadata retrieval.
-- `runShell`: Runs safe shell commands. Blocks for 15s then goes to background if not finished. Returns an 8-digit Job ID.
-- `getToolStatus`: Check live status and output of a shell job using its Job ID.
-- `wait`: Blocks until a shell job is finished, providing updates every second.
+- `runShell`: Executes safe shell commands. Blocks for 15s; if unfinished, returns an 8-digit **Job ID** and continues in background.
+- `getToolStatus`: Retrieves real-time output and status (Running/Completed/Failed) using a Job ID.
+- `wait`: Blocks until a specific job completes, polling every second for status updates.
 
-## Shell Command Security
+## Shell Command Management
+
+The toolkit includes a sophisticated **Job Manager** for handling long-running processes:
+
+1. **Blocking & Background:** `runShell` attempts to finish within 15 seconds. If the task takes longer (e.g., a complex build), it yields a `jobId` so the agent can perform other tasks while the command runs.
+2. **Monitoring:** Use `getToolStatus(jobId)` to check on progress without blocking.
+3. **Synchronization:** Use `wait(jobId)` when you need to ensure a background task is finished before proceeding.
+
+## Security Design
 
 The `runShell` tool blocks dangerous patterns like:
 - `rm -rf /`
